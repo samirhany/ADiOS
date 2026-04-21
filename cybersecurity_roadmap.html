@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADiOS - خارطة طريق الأمن السيبراني الشاملة</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-dark: #0f1117;
+            --cyber-red: #ef4444;
+            --cyber-green: #22c55e;
+            --cyber-yellow: #eab308;
+            --neon-blue: #00d2ff;
+            --cert-gold: #ffd700;
+        }
+
+        .roadmap-page { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05); color: #fff;
+            border: 1px solid var(--neon-blue); padding: 10px 20px;
+            border-radius: 8px; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 8px; transition: 0.3s; margin-bottom: 30px;
+        }
+        .btn-back:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
+
+        .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .column {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .column-header { text-align: center; font-weight: bold; padding-bottom: 15px; border-bottom: 2px solid; }
+        .off-h { color: var(--cyber-red); border-color: var(--cyber-red); }
+        .def-h { color: var(--cyber-green); border-color: var(--cyber-green); }
+        .grc-h { color: var(--cyber-yellow); border-color: var(--cyber-yellow); }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px;
+            text-align: center; font-size: 0.85rem; border: 1px solid transparent;
+        }
+
+        .explanation-box {
+            grid-column: 1 / span 3;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(34, 197, 94, 0.1));
+            border-right: 5px solid var(--cyber-red);
+            padding: 30px; border-radius: 15px; margin: 20px 0; line-height: 1.8;
+        }
+        .explanation-box h3 { color: var(--cyber-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .explanation-box b { color: var(--cyber-red); }
+
+        .cert-box {
+            background: rgba(255, 215, 0, 0.08); border: 1px solid var(--cert-gold);
+            padding: 15px; border-radius: 10px; margin-top: 15px;
+        }
+        .cert-box b { color: var(--cert-gold); font-size: 1.1rem; }
+
+        .uni-subjects-box {
+            grid-column: 1 / span 3; background: rgba(251, 146, 60, 0.05);
+            border: 1px solid #fb923c; padding: 20px;
+            border-radius: 12px; margin-bottom: 40px;
+        }
+        .uni-tag { background: #fb923c; color: #000; padding: 4px 12px; border-radius: 5px; font-weight: bold; margin-left: 10px; }
+
+        .job-card {
+            background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 10px;
+            margin-top: 20px; border: 1px dashed var(--cyber-red); display: flex; justify-content: space-around;
+        }
+
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 50px; }
+        .footer-card { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+        .site-footer { text-align: center; padding: 60px; border-top: 1px solid #333; margin-top: 50px; }
+        .footer-logo { font-size: 2.2rem; color: var(--neon-blue); font-weight: bold; margin-bottom: 10px; display: block; }
+
+        @media (max-width: 900px) { .roadmap-grid, .footer-grid { grid-template-columns: 1fr; } .explanation-box, .uni-subjects-box { grid-column: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="quiz.html">الاختبار</a></li>
+                <li><a href="masar.html">المسار</a></li>
+                <li><a href="student.html">الخريجون</a></li>
+            </ul>
+        </nav>
+        <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+    </header>
+
+    <div class="roadmap-page">
+        <a href="masar.html" class="btn-back">🔙 العودة للمسارات</a>
+        <h1 style="text-align: center; color: var(--cyber-red);">خارطة طريق الأمن السيبراني الاحترافية</h1>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header off-h">الهجوم (الأساس)</div><div class="tech-item">Networking Basics</div><div class="tech-item">Linux Essentials</div></div>
+            <div class="column"><div class="column-header def-h">الدفاع (المفاهيم)</div><div class="tech-item">CIA Triad</div><div class="tech-item">Cryptography Basics</div></div>
+            <div class="column"><div class="column-header grc-h">الحوكمة</div><div class="tech-item">Cyber Laws</div><div class="tech-item">Risk Intro</div></div>
+            <div class="explanation-box">
+                <h3>🛡️ المرحلة 1: "بناء الحصن الذهني"</h3>
+                <p>لا يمكنك حماية نظام لا تفهم كيف يعمل. في هذه المرحلة تتعلم كيف "يفكر" الهكر من خلال فهم <b>الشبكات</b> و <b>أنظمة Linux</b>. ستتعرف على مثلث الأمان الذهبي <b>(CIA: السرية، السلامة، التوافر)</b> وكيفية تشفير البيانات البسيطة.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> CompTIA Security+ (أهم شهادة لبداية أي مسار أمني).</div>
+                <div class="job-card"><span>المسمى: Security Specialist</span><span>الراتب: $700</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"أمن البيانات"</b> و <b>"مبادئ الشبكات"</b>. هنا يبدأ التأسيس الأكاديمي.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header off-h">الاختراق</div><div class="tech-item">Nmap / Recon</div><div class="tech-item">Metasploit Intro</div></div>
+            <div class="column"><div class="column-header def-h">الحماية</div><div class="tech-item">Firewalls / IDS</div><div class="tech-item">WAF Setup</div></div>
+            <div class="column"><div class="column-header grc-h">الامتثال</div><div class="tech-item">ISO 27001</div><div class="tech-item">Security Policies</div></div>
+            <div class="explanation-box">
+                <h3>🔍 المرحلة 2: "المحلل الأمني والباحث"</h3>
+                <p>هنا تبدأ باستخدام أدوات حقيقية. ستتعلم كيف تكتشف الثغرات في المواقع باستخدام <b>Nmap</b> و <b>Burp Suite</b>. وفي المقابل، ستتعلم كيف تبني جدران حماية (Firewalls) وتراقب محاولات الدخول غير المصرح بها عبر أنظمة <b>IDS/IPS</b>.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> Certified Ethical Hacker (CEH) أو eJPT (للمبتدئين في الاختراق).</div>
+                <div class="job-card"><span>المسمى: SOC Analyst L1</span><span>الراتب: $1200+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"نظم التشغيل"</b> و <b>"قواعد البيانات"</b> (لفهم ثغرات SQL Injection).</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header off-h">اختبار الاختراق</div><div class="tech-item">Web App Pentest</div><div class="tech-item">Privilege Escalation</div></div>
+            <div class="column"><div class="column-header def-h">الاستجابة</div><div class="tech-item">Incident Response</div><div class="tech-item">SIEM (Splunk)</div></div>
+            <div class="column"><div class="column-header grc-h">إدارة المخاطر</div><div class="tech-item">NIST Framework</div><div class="tech-item">Risk Assessment</div></div>
+            <div class="explanation-box">
+                <h3>🚀 المرحلة 3: "المهاجم المحترف (Penetration Tester)"</h3>
+                <p>الآن أنت مخترق أخلاقي محترف. ستتعلم اختراق تطبيقات الويب، ورفع صلاحياتك داخل السيرفر <b>(Privilege Escalation)</b>. وفي الجانب الدفاعي، ستتعلم كيف تدير مركز العمليات الأمنية (SOC) باستخدام <b>Splunk</b> للتحقيق في الهجمات بعد وقوعها.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> OSCP (الشهادة الأقوى عملياً في الاختراق) أو CySA+ (للمحللين الدفاعيين).</div>
+                <div class="job-card"><span>المسمى: Penetration Tester</span><span>الراتب: $2500+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"مشروع التخرج"</b> هي المكان الأنسب لبناء أداة فحص أمني.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header off-h">الهجوم المتقدم</div><div class="tech-item">Active Directory Attack</div><div class="tech-item">Exploit Dev</div></div>
+            <div class="column"><div class="column-header def-h">التحقيق الجنائي</div><div class="tech-item">Digital Forensics</div><div class="tech-item">Malware Analysis</div></div>
+            <div class="column"><div class="column-header grc-h">أمن السحاب</div><div class="tech-item">Cloud Security (AWS)</div><div class="tech-item">DevSecOps</div></div>
+            <div class="explanation-box">
+                <h3>🧬 المرحلة 4: "المحقق الجنائي ومحلل البرمجيات"</h3>
+                <p>هنا تدخل إلى أعماق الكود. ستتعلم كيف تحلل البرمجيات الخبيثة <b>(Malware Analysis)</b> وتفكك الفيروسات لتعرف كيف تعمل. ستتعلم أيضاً <b>Digital Forensics</b> لجمع الأدلة الرقمية التي تُقدم للمحاكم في القضايا السيبرانية.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> SANS GIAC (GCFE/GCFA) أو Certified Information Systems Auditor (CISA).</div>
+                <div class="job-card"><span>المسمى: Digital Forensics Examiner</span><span>الراتب: $4000+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مواد <b>"الخوارزميات"</b> و <b>"هندسة البرمجيات"</b> ضرورية جداً لفهم منطق الفيروسات.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header off-h">العمليات الحمراء</div><div class="tech-item">Red Teaming</div></div>
+            <div class="column"><div class="column-header def-h">العمليات الزرقاء</div><div class="tech-item">Threat Hunting</div></div>
+            <div class="column"><div class="column-header grc-h">القيادة</div><div class="tech-item">CISO Strategy</div><div class="tech-item">Crisis Management</div></div>
+            <div class="explanation-box">
+                <h3>👑 المرحلة 5: "خبير الاستراتيجيات الأمنية (CISO)"</h3>
+                <p>أنت الآن تقود جيوشاً أمنية. تصمم استراتيجيات حماية لمؤسسات ودول كاملة. تدير فرق الـ <b>Red Team</b> (المهاجمين) والـ <b>Blue Team</b> (المدافعين) لضمان أعلى مستوى من الجاهزية. هدفك هو تقليل المخاطر لأدنى مستوى ممكن.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> CISSP (تاج الشهادات الأمنية) أو CISM (للإدارة الأمنية).</div>
+                <div class="job-card"><span>المسمى: CISO / Security Architect</span><span>الراتب: فئة الخبراء</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"إدارة المشاريع"</b> و <b>"تحليل النظم"</b> تساعدك في الجانب الإداري.</div>
+        </div>
+
+        <div class="footer-grid">
+            <div class="footer-card">
+                <h3 style="color: var(--cyber-red); margin-bottom:10px;">⚠️ تحذير أخلاقي</h3>
+                <p>تذكر دائماً: "القوة الكبيرة تأتي معها مسؤولية كبيرة". العلم الذي ستتعلمه هنا هو سلاح ذو حدين. استخدم مهاراتك دائماً في الحماية والبناء، فالسوق يحتاج للمهندسين الشرفاء لحماية البيانات والخصوصية.</p>
+            </div>
+            <div class="footer-card" style="border-color: var(--cyber-green); background: rgba(34, 197, 94, 0.05);">
+                <h3 style="color: var(--cyber-green); margin-bottom:10px;">🌟 كلمة ADiOS لك</h3>
+                <p>تخصص الأمن السيبراني ليس مجرد "أدوات"، بل هو "عقلية" تشك في كل شيء لتؤمّن كل شيء. الطريق طويل ومليء بالتحديات والـ CTFs الممتعة. ابدأ بالأساسيات اليوم، وسنراك يوماً ما حارساً للفضاء الرقمي!</p>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <span class="footer-logo">ADiOS</span>
+            <p style="color: #666;">تم البناء بواسطة مهندسي ADiOS &copy; 2026</p>
+        </footer>
+    </div>
+
+</body>
+</html>

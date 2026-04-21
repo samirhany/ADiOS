@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADiOS - خارطة طريق برمجة التطبيقات الشاملة</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-dark: #0f1117;
+            --ios-color: #818cf8;
+            --android-color: #34d399;
+            --cross-color: #38bdf8;
+            --neon-blue: #00d2ff;
+            --cert-gold: #ffd700;
+        }
+
+        .roadmap-page { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05); color: #fff;
+            border: 1px solid var(--neon-blue); padding: 10px 20px;
+            border-radius: 8px; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 8px; transition: 0.3s; margin-bottom: 30px;
+        }
+        .btn-back:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
+
+        .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .column {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .column-header { text-align: center; font-weight: bold; padding-bottom: 15px; border-bottom: 2px solid; }
+        .ios-h { color: var(--ios-color); border-color: var(--ios-color); }
+        .and-h { color: var(--android-color); border-color: var(--android-color); }
+        .cross-h { color: var(--cross-color); border-color: var(--cross-color); }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px;
+            text-align: center; font-size: 0.85rem; border: 1px solid transparent;
+        }
+
+        .explanation-box {
+            grid-column: 1 / span 3;
+            background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), rgba(52, 211, 153, 0.1));
+            border-right: 5px solid var(--ios-color);
+            padding: 30px; border-radius: 15px; margin: 20px 0; line-height: 1.8;
+        }
+        .explanation-box h3 { color: var(--ios-color); margin-bottom: 15px; font-size: 1.5rem; }
+        .explanation-box b { color: var(--ios-color); }
+
+        .cert-box {
+            background: rgba(255, 215, 0, 0.08); border: 1px solid var(--cert-gold);
+            padding: 15px; border-radius: 10px; margin-top: 15px;
+        }
+        .cert-box b { color: var(--cert-gold); font-size: 1.1rem; }
+
+        .uni-subjects-box {
+            grid-column: 1 / span 3; background: rgba(251, 146, 60, 0.05);
+            border: 1px solid #fb923c; padding: 20px;
+            border-radius: 12px; margin-bottom: 40px;
+        }
+        .uni-tag { background: #fb923c; color: #000; padding: 4px 12px; border-radius: 5px; font-weight: bold; margin-left: 10px; }
+
+        .job-card {
+            background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 10px;
+            margin-top: 20px; border: 1px dashed var(--cross-color); display: flex; justify-content: space-around;
+        }
+
+        .site-footer { text-align: center; padding: 60px; border-top: 1px solid #333; margin-top: 50px; }
+        .footer-logo { font-size: 2.2rem; color: var(--neon-blue); font-weight: bold; display: block; }
+
+        @media (max-width: 900px) { .roadmap-grid { grid-template-columns: 1fr; } .explanation-box, .uni-subjects-box { grid-column: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="quiz.html">الاختبار</a></li>
+                <li><a href="masar.html">المسار</a></li>
+                <li><a href="student.html">الخريجون</a></li>
+            </ul>
+        </nav>
+        <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+    </header>
+
+    <div class="roadmap-page">
+        <a href="masar.html" class="btn-back">🔙 العودة للمسارات</a>
+        <h1 style="text-align: center; color: var(--cross-color);">خارطة طريق برمجة تطبيقات الهواتف</h1>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header ios-h">الأساس (iOS)</div><div class="tech-item">Swift Basics</div><div class="tech-item">Xcode Setup</div></div>
+            <div class="column"><div class="column-header and-h">الأساس (Android)</div><div class="tech-item">Kotlin Basics</div><div class="tech-item">Android Studio</div></div>
+            <div class="column"><div class="column-header cross-h">الأساس (Cross)</div><div class="tech-item">Dart (Flutter)</div><div class="tech-item">JS/TS (React Native)</div></div>
+            <div class="explanation-box">
+                <h3>📱 المرحلة 1: "اختيار السلاح وتأسيس المنطق"</h3>
+                <p>في عالم الموبايل، عليك اختيار طريقك: إما <b>Native</b> (للنظام بشكل مباشر) أو <b>Cross-Platform</b> (كود واحد للنظامين). ستتعلم أساسيات البرمجة الكائنية <b>(OOP)</b> وكيفية بناء واجهات بسيطة تحتوي على أزرار وقوائم. هذه المرحلة هي التي تشكل تفكيرك البرمجي.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> Meta iOS/Android Developer Professional Certificate (Coursera).</div>
+                <div class="job-card"><span>المسمى: Junior Mobile Dev</span><span>الراتب: $600</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"البرمجة الكائنية OOP"</b> و <b>"تراكيب البيانات"</b>. هما المفتاح لفهم أي لغة موبايل.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header ios-h">الواجهات (iOS)</div><div class="tech-item">SwiftUI</div><div class="tech-item">Auto Layout</div></div>
+            <div class="column"><div class="column-header and-h">الواجهات (Android)</div><div class="tech-item">Jetpack Compose</div><div class="tech-item">XML Layouts</div></div>
+            <div class="column"><div class="column-header cross-h">الواجهات (Cross)</div><div class="tech-item">Widgets (Flutter)</div><div class="tech-item">Flexbox (RN)</div></div>
+            <div class="explanation-box">
+                <h3>🎨 المرحلة 2: "فن بناء الواجهات (UI/UX)"</h3>
+                <p>الموبايل يتميز بمحدودية الشاشة، لذا ستتعلم تقنيات التصميم الحديثة مثل <b>SwiftUI</b> أو <b>Jetpack Compose</b>. ستتعلم كيف تجعل التطبيق "متجاوباً" مع أحجام الشاشات المختلفة وكيفية التعامل مع الصور والألوان لجذب المستخدم.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> Google Associate Android Developer (لطلاب أندرويد).</div>
+                <div class="job-card"><span>المسمى: UI Mobile Developer</span><span>الراتب: $1000+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"برمجة تطبيقات الهواتف الذكية"</b> و <b>"تفاعل الإنسان مع الحاسوب HCI"</b>.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header ios-h">البيانات (iOS)</div><div class="tech-item">Core Data</div><div class="tech-item">URLSession</div></div>
+            <div class="column"><div class="column-header and-h">البيانات (Android)</div><div class="tech-item">Room DB</div><div class="tech-item">Retrofit / OkHttp</div></div>
+            <div class="column"><div class="column-header cross-h">البيانات (Cross)</div><div class="tech-item">SQLite / Hive</div><div class="tech-item">Dio / Axios</div></div>
+            <div class="explanation-box">
+                <h3>📡 المرحلة 3: "ربط التطبيق بالعالم (API & Storage)"</h3>
+                <p>التطبيقات الحقيقية تعيش على الإنترنت. ستتعلم كيف تجلب البيانات من السيرفر باستخدام <b>REST APIs</b> وكيفية حفظ بيانات المستخدم داخل الجهاز (Offline Mode) ليعمل التطبيق حتى بدون إنترنت. ستتعلم أيضاً كيفية التعامل مع صيغ <b>JSON</b> ببراعة.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> App Development with Swift (Apple Certified).</div>
+                <div class="job-card"><span>المسمى: Mobile Application Engineer</span><span>الراتب: $1800+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"تراسل البيانات والشبكات"</b> و <b>"قواعد البيانات 1"</b>.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header ios-h">المعمارية (iOS)</div><div class="tech-item">MVVM / VIPER</div><div class="tech-item">Combine Framework</div></div>
+            <div class="column"><div class="column-header and-h">المعمارية (Android)</div><div class="tech-item">Clean Architecture</div><div class="tech-item">Hilt / Koin</div></div>
+            <div class="column"><div class="column-header cross-h">المعمارية (Cross)</div><div class="tech-item">BLoC / Riverpod</div><div class="tech-item">Redux (RN)</div></div>
+            <div class="explanation-box">
+                <h3>🏗️ المرحلة 4: "هندسة التطبيقات الضخمة (Clean Code)"</h3>
+                <p>التطبيقات الكبيرة مثل Facebook أو Instagram لا تُبنى بعشوائية. ستتعلم أنماط التصميم المعمارية مثل <b>MVVM</b> لضمان سهولة صيانة الكود وتطويره. ستتعلم أيضاً حقن التبعيات <b>(Dependency Injection)</b> وكيفية كتابة كود نظيف وقابل للاختبار.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> Flutter Certified Application Developer.</div>
+                <div class="job-card"><span>المسمى: Senior Mobile Developer</span><span>الراتب: $3000+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"هندسة البرمجيات"</b> و <b>"تحليل وتصميم النظم"</b>.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header ios-h">النشر (iOS)</div><div class="tech-item">App Store Connect</div><div class="tech-item">TestFlight</div></div>
+            <div class="column"><div class="column-header and-h">النشر (Android)</div><div class="tech-item">Google Play Console</div><div class="tech-item">App Bundles</div></div>
+            <div class="column"><div class="column-header cross-h">النشر (Cross)</div><div class="tech-item">Fastlane</div><div class="tech-item">CI/CD for Mobile</div></div>
+            <div class="explanation-box">
+                <h3>👑 المرحلة 5: "الإطلاق وإدارة دورة الحياة"</h3>
+                <p>أنت الآن جاهز لمواجهة الجمهور. ستتعلم كيفية رفع التطبيقات على <b>App Store</b> و <b>Google Play</b>، وكيفية تتبع الأخطاء بعد الإطلاق (Crashlytics) وإرسال التحديثات. ستتعلم أيضاً كيفية دمج الإعلانات أو نظم الدفع <b>(In-App Purchases)</b> لتحويل تطبيقك لمشروع استثماري.</p>
+                <div class="cert-box">🎓 <b>الشهادات المستهدفة:</b> Udacity NanoDegree - iOS/Android Developer.</div>
+                <div class="job-card"><span>المسمى: Mobile Solutions Architect</span><span>الراتب: الفئة العليا</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة <b>"مشروع التخرج"</b>؛ هنا يجب أن تطلق تطبيقك الأول للعالم.</div>
+        </div>
+
+        <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;">
+            <div class="footer-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(129, 140, 248, 0.2);">
+                <h3 style="color: var(--ios-color); margin-bottom:10px;">⚡ نصيحة للمبرمج الشغوف</h3>
+                <p>في برمجة الموبايل، "التجربة" هي المعلم الأكبر. لا تكتفِ بمشاهدة الدروس؛ امسك هاتفك، وابنِ تطبيقاً يحل مشكلة صغيرة في حياتك أو حياة زملائك في الجامعة. الخطأ الذي تقع فيه اليوم هو الخبرة التي ستباع غداً.</p>
+            </div>
+            <div class="footer-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.2);">
+                <h3 style="color: var(--android-color); margin-bottom:10px;">🌟 رسالة ADiOS</h3>
+                <p>تذكر يا بطل، تطبيقات الهواتف هي الواجهة الأقرب للمستخدمين في هذا العصر. أنت تمتلك القدرة على تغيير حياة الناس بتطبيق بسيط في جيوبهم. ابدأ الآن، فالعالم ينتظر تطبيقك القادم!</p>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <span class="footer-logo">ADiOS</span>
+            <p style="color: #666;">تم البناء بواسطة مهندسي ADiOS &copy; 2026</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>ADiOS - الخريجون</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/edge.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.html">ADiOS</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="quiz.html">الاختبار</a></li>
+                <li><a href="masar.html">المسار</a></li>
+                <li><a href="student.html">الخريجون</a></li>
+            </ul>
+        </nav>
+<button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>    </header>
+
+    <div class="page-content">
+        <h1 style="color: var(--neon-blue);">قاعدة بيانات المبدعين</h1>
+        <p>ابحث عن الكفاءات الوطنية في مختلف المجالات التقنية.</p>
+
+        <div class="search-section">
+            <div class="search-container">
+                <select class="search-input">
+                    <option value="" disabled selected>— المهني —</option>
+                    <option>طالب</option>
+                    <option>طالب ذو مهارة</option>
+                    <option>خريج</option>
+                </select>
+                
+                <select class="search-input">
+                    <option value="" disabled selected>التخصص</option>
+                    <option>الويب</option>
+                    <option>الشبكات والحوسبة السحابية</option>
+                    <option>الأمن السيبراني</option>
+                    <option>الذكاء الاصطناعي</option>
+                    <option>التطبيقات</option>
+                </select>
+
+                <input type="text" class="search-input" placeholder="المهارة (اختياري)">
+                
+                <button class="search-btn">بحث</button>
+            </div>
+        </div>
+
+        <div class="students-grid" id="studentsGrid">
+            </div>
+
+        <button class="load-more" id="loadMoreBtn">عرض المزيد</button>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADiOS - خارطة طريق الاحتراف الكاملة</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-dark: #0f1117;
+            --fe-color: #60a5fa;
+            --be-color: #a78bfa;
+            --do-color: #f472b6;
+            --accent-orange: #fb923c;
+            --neon-blue: #00d2ff;
+        }
+
+        .roadmap-page { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05); color: #fff;
+            border: 1px solid var(--neon-blue); padding: 10px 20px;
+            border-radius: 8px; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 8px; transition: 0.3s; margin-bottom: 30px;
+        }
+
+        .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .column {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .column-header { text-align: center; font-weight: bold; padding-bottom: 15px; border-bottom: 2px solid; }
+        .fe-h { color: var(--fe-color); border-color: var(--fe-color); }
+        .be-h { color: var(--be-color); border-color: var(--be-color); }
+        .do-h { color: var(--do-color); border-color: var(--do-color); }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px;
+            text-align: center; font-size: 0.85rem; border: 1px solid transparent;
+        }
+
+        .explanation-box {
+            grid-column: 1 / span 3;
+            background: linear-gradient(135deg, rgba(157, 80, 187, 0.1), rgba(0, 210, 255, 0.1));
+            border-right: 5px solid var(--neon-blue);
+            padding: 30px; border-radius: 15px; margin: 20px 0; line-height: 1.8;
+        }
+        .explanation-box h3 { color: var(--neon-blue); margin-bottom: 10px; }
+        .explanation-box b { color: var(--neon-blue); }
+
+        .uni-subjects-box {
+            grid-column: 1 / span 3; background: rgba(251, 146, 60, 0.05);
+            border: 1px solid var(--accent-orange); padding: 15px 25px;
+            border-radius: 12px; margin-bottom: 40px;
+        }
+        .uni-tag { background: var(--accent-orange); color: #000; padding: 3px 10px; border-radius: 4px; font-weight: bold; margin-left: 10px; }
+
+        .job-card {
+            background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 10px;
+            margin-top: 15px; border: 1px dashed var(--neon-purple); display: flex; justify-content: space-around;
+        }
+
+        .footer-card { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(157, 80, 187, 0.2); }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 50px; }
+
+        .site-footer { text-align: center; padding: 60px; border-top: 1px solid #333; margin-top: 50px; }
+        .footer-logo { font-size: 2rem; color: var(--neon-blue); font-weight: bold; margin-bottom: 10px; display: block; }
+
+        @media (max-width: 900px) { .roadmap-grid, .footer-grid { grid-template-columns: 1fr; } .explanation-box, .uni-subjects-box { grid-column: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="quiz.html">الاختبار</a></li>
+                <li><a href="masar.html">المسار</a></li>
+                <li><a href="student.html">الخريجون</a></li>
+            </ul>
+        </nav>
+        <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+    </header>
+
+    <div class="roadmap-page">
+        <a href="masar.html" class="btn-back">🔙 العودة للمسارات</a>
+        <h1 style="text-align: center; color: var(--neon-blue); margin-bottom: 50px;">خارطة طريق الـ Full Stack المترابطة (5 مراحل)</h1>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header fe-h">FRONTEND (التطوير) </div><div class="tech-item">HTML5 / CSS3</div><div class="tech-item">JS DOM الأساسي</div></div>
+            <div class="column"><div class="column-header be-h">BACKEND (المنطق) </div><div class="tech-item">Node.js</div><div class="tech-item">NPM Packages</div></div>
+            <div class="column"><div class="column-header do-h">DevOps (الإدارة)</div><div class="tech-item">Git & GitHub</div></div>
+            <div class="explanation-box">
+                <h3>🛠️ المرحلة 1: "بناء الهيكل والروح"</h3>
+                <p>هنا تبدأ رحلتك. تتعلم كيف تبني <b>الهيكل (HTML)</b>، وتضيف <b>الألوان (CSS)</b>، ثم تجعل الموقع "يفكر" باستخدام <b>JavaScript</b>. تعلمك لهذه الأدوات يجعلك قادراً على صنع صفحات بسيطة تتفاعل مع المستخدم.</p>
+                <p><b>ليش تكمل؟</b> لأنك لحد الآن تصنع صفحات "جامدة" لا تحفظ أي بيانات. للانتقال من "هاوي" إلى "محترف"، يجب أن تتعلم كيف تخزن المعلومات.</p>
+                <div class="job-card"><span>المسمى: Junior Web Dev</span><span>الراتب: $600</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> ركز في "مبادئ البرمجة" و "تصميم الويب". هنا تطبق ما تدرسه في المختبرات فعلياً.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header fe-h ">FRONTEND (التطوير)  </div><div class="tech-item">React.js</div><div class="tech-item">Hooks & State</div></div>
+            <div class="column"><div class="column-header be-h">BACKEND (قواعد البيانات) </div><div class="tech-item">SQL (PostgreSQL)</div><div class="tech-item">NoSQL (MongoDB)</div></div>
+            <div class="column"><div class="column-header do-h">DevOps (الخوادم)</div><div class="tech-item">Express.js API</div></div>
+            <div class="explanation-box">
+                <h3>💾 المرحلة 2: "الذاكرة والذكاء"</h3>
+                <p>في هذه المرحلة، موقعك سيمتلك "ذاكرة". ستتعلم <b>قواعد البيانات</b> لحفظ حسابات المستخدمين. وستستخدم <b>React</b> لبناء واجهات احترافية وسريعة جداً مثل فيسبوك وتويتر.</p>
+                <p><b>ليش تكمل؟</b> صرت تبني أنظمة، لكن كيف ستنشرها للعالم؟ وكيف ستحميها من الهكر؟ المرحلة القادمة هي "النشر والأمان".</p>
+                <div class="job-card"><span>المسمى: Full Stack Dev</span><span>الراتب: $1200</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة "قواعد البيانات" هي كنزك هنا. أيضاً مادة "هندسة البرمجيات" لتنظيم كودك.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header fe-h">FRONTEND (الأداء) </div><div class="tech-item">Next.js</div><div class="tech-item">Server Side Rendering</div></div>
+            <div class="column"><div class="column-header be-h">BACKEND (الأمان) </div><div class="tech-item">JWT Auth</div><div class="tech-item">OAuth (Google/FB)</div></div>
+            <div class="column"><div class="column-header do-h">DevOps (النشر)</div><div class="tech-item">Docker</div><div class="tech-item">Vercel / AWS</div></div>
+            <div class="explanation-box">
+                <h3>🚀 المرحلة 3: "الخروج للعالم"</h3>
+                <p>هنا تتعلم كيف ترفع موقعك على الإنترنت (Deployment) باستخدام <b>Docker</b> لضمان عمله في كل مكان. كما ستتعلم نظام <b>JWT</b> لتأمين دخول المستخدمين وحماية بياناتهم من السرقة.</p>
+                <p><b>ليش تكمل؟</b> أنت الآن مبرمج رائع، لكنك لست "مهندس أنظمة" بعد. الأنظمة الضخمة تحتاج لتوزيع أحمال وتعامل مع ملايين الزوار.</p>
+                <div class="job-card"><span>المسمى: Senior Full Stack</span><span>الراتب: $2500+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> ركز في "أمن البيانات" و "نظم التشغيل". ستحتاجهم لفهم كيف يعمل السيرفر.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header fe-h">FRONTEND (التوسع) </div><div class="tech-item">TypeScript</div><div class="tech-item">Micro-Frontends</div></div>
+            <div class="column"><div class="column-header be-h">BACKEND (التوزيع) </div><div class="tech-item">Microservices</div><div class="tech-item">Redis Caching</div></div>
+            <div class="column"><div class="column-header do-h">DevOps (الجودة)</div><div class="tech-item">Unit Testing (Jest)</div><div class="tech-item">CI/CD Pipelines</div></div>
+            <div class="explanation-box">
+                <h3>🏗️ المرحلة 4: "هندسة الأنظمة العملاقة"</h3>
+                <p>هنا ننتقل لمستوى الشركات العالمية. ستتعلم <b>TypeScript</b> لمنع الأخطاء قبل وقوعها، و <b>Microservices</b> لتقسيم النظام الضخم لخدمات صغيرة مستقلة، و <b>Redis</b> لتسريع الموقع 10 أضعاف.</p>
+                <p><b>ليش تكمل؟</b> هذه آخر خطوة لتصبح "خبيراً" يقود الفرق البرمجية ويصمم حلولاً سحابية معقدة.</p>
+                <div class="job-card"><span>المسمى: System Architect</span><span>الراتب: $4000+</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> مادة "تحليل وتصميم النظم" و "الخوارزميات" هي الأساس في هذه المرحلة.</div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="column"><div class="column-header fe-h">مستقبل</div><div class="tech-item">PWA</div><div class="tech-item">WebAssembly</div></div>
+            <div class="column"><div class="column-header be-h">سحابة</div><div class="tech-item">AWS / Azure / GCP</div><div class="tech-item">Serverless Functions</div></div>
+            <div class="column"><div class="column-header do-h">أوركسترا</div><div class="tech-item">Kubernetes</div><div class="tech-item">Terraform</div></div>
+            <div class="explanation-box">
+                <h3>☁️ المرحلة 5: "مهندس السحابة والخبير"</h3>
+                <p>في القمة، تتعلم كيف تدير مئات السيرفرات بضغطة زر باستخدام <b>Kubernetes</b>، وكيف تبني أنظمة لا تسقط أبداً (High Availability) على <b>AWS</b>. هنا أنت لا تكتب كوداً فقط، بل تصمم مستقبلاً تقنياً.</p>
+                <div class="job-card"><span>المسمى: Cloud Engineer / Tech Lead</span><span>الراتب: خيالي حسب الخبرة</span></div>
+            </div>
+            <div class="uni-subjects-box"><span class="uni-tag">جامعياً:</span> "الحوسبة السحابية" ومشاريع التخرج هي المكان المثالي لتطبيق هذه الخبرات.</div>
+        </div>
+
+        <div class="footer-grid">
+            <div class="footer-card">
+                <h3 style="color: var(--neon-purple); margin-bottom:10px;">🛡️ نصيحة لمهندسي المستقبل</h3>
+                <p>الجامعة تعطيك "المفتاح" (الأساس النظري)، لكنك أنت من يجب أن يفتح "الأبواب" (التطبيق العملي). لا تكتفِ بالمحاضرات؛ ابنِ مشاريعك الخاصة، واعلم أن كل "Error" يظهر لك هو خطوة للأمام في مسيرتك المهنية.</p>
+            </div>
+            <div class="footer-card" style="border-color: var(--neon-blue); background: rgba(0, 210, 255, 0.05);">
+                <h3 style="color: var(--neon-blue); margin-bottom:10px;">🌟 كلمة من ADiOS</h3>
+                <p>نحن هنا لنرشدك، لكن الشغف ينبع منك. طريق الـ Full Stack متعب لكنه الأكثر طلباً ومجداً في العالم. ابدأ بالخطوة الأولى اليوم، وسنكون معك في كل مرحلة حتى تصل للقمة. أنت قدها!</p>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <span class="footer-logo">ADiOS</span>
+            <p style="color: #666;">تم البناء بواسطة مهندسي ADiOS &copy; 2026</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
