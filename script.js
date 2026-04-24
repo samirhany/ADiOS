@@ -40,6 +40,21 @@
         // زر عرض المزيد
         loadMoreBtn.addEventListener('click', loadSixCards);
 
+function openAuthPopup() {
+    document.getElementById("authPopup").classList.remove("hidden");
+}
+
+function closeAuthPopup() {
+    document.getElementById("authPopup").classList.add("hidden");
+}
+
+function goLogin() {
+    window.location.href = "login.html";
+}
+
+function goRegister() {
+    window.location.href = "register.html";
+}
 
 
         
