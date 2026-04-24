@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إنشاء حساب</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo"><a href="index.html">ADiOS</a></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a class="login-card" href="login.html">تسجيل الدخول</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="auth-container">
+    <div class="auth-box">
+
+        <h2 class="neon-text-purple">إنشاء حساب جديد</h2>
+
+        <!-- اسم المستخدم -->
+        <label>اسم المستخدم</label>
+        <input id="username" class="search-input" placeholder="مثال: samir123">
+
+        <!-- الاسم الكامل -->
+        <label>الاسم الكامل</label>
+        <input id="name" class="search-input" placeholder="مثال: سمير أحمد">
+
+        <!-- البريد الإلكتروني -->
+        <label>البريد الإلكتروني</label>
+        <input id="email" class="search-input" placeholder="مثال: example@mail.com">
+
+        <!-- كلمة المرور -->
+        <label>كلمة المرور</label>
+        <input id="password" type="password" class="search-input" placeholder="••••••••">
+
+        <!-- نوع الطالب -->
+        <label>نوع الطالب</label>
+        <select id="student_type" class="search-input" onchange="toggleSkill()">
+            <option value="">اختر نوع الطالب</option>
+            <option value="طالب">طالب</option>
+            <option value="طالب ذو خبرة">طالب ذو خبرة</option>
+            <option value="خريج">خريج</option>
+        </select>
+
+        <!-- التخصص -->
+        <label>التخصص</label>
+        <select id="major" class="search-input">
+            <option value="">اختر التخصص</option>
+            <option value="برمجة الويب">برمجة الويب</option>
+            <option value="الأمن السيبراني">الأمن السيبراني</option>
+            <option value="الشبكات والحوسبة السحابية">الشبكات والحوسبة السحابية</option>
+            <option value="إدارة علم البيانات والذكاء الاصطناعي">إدارة علم البيانات والذكاء الاصطناعي</option>
+            <option value="برمجة التطبيقات">برمجة التطبيقات</option>
+        </select>
+
+        <!-- المهارة -->
+        <label id="skill_label" class="hidden">المهارة</label>
+        <input id="skill_title" class="search-input hidden" placeholder="مثال: Frontend Developer">
+
+        <!-- واتساب -->
+        <label>رقم الواتساب</label>
+        <input id="whatsapp" class="search-input" placeholder="مثال: 0590000000">
+
+        <!-- صورة شخصية -->
+        <label>الصورة الشخصية</label>
+        <input id="profile_image" type="file" accept="image/*">
+
+        <!-- ملف المشروع -->
+        <label>ملف المشروع</label>
+        <input id="project_file" type="file">
+
+        <button class="search-btn w-100" onclick="register()">إنشاء حساب</button>
+
+        <p id="msg"></p>
+
+        <p class="auth-switch">لديك حساب؟ <span onclick="goLogin()">تسجيل الدخول</span></p>
+    </div>
+</div>
+
+<script>
+function goLogin() {
+    window.location.href = "login.html";
+}
+
+// إظهار/إخفاء المهارة حسب نوع الطالب
+function toggleSkill() {
+    const type = document.getElementById("student_type").value;
+    const skill = document.getElementById("skill_title");
+    const label = document.getElementById("skill_label");
+
+    if (type === "طالب") {
+        skill.classList.add("hidden");
+        label.classList.add("hidden");
+        skill.value = "";
+    } else {
+        skill.classList.remove("hidden");
+        label.classList.remove("hidden");
+    }
+}
+
+async function register() {
+    const formData = new FormData();
+
+    formData.append("username", username.value);
+    formData.append("name", name.value);
+    formData.append("email", email.value);
+    formData.append("password", password.value);
+    formData.append("student_type", student_type.value);
+    formData.append("major", major.value);
+    formData.append("skill_title", skill_title.value);
+    formData.append("whatsapp", whatsapp.value);
+
+    if (profile_image.files.length > 0) {
+        formData.append("profile_image", profile_image.files[0]);
+    }
+
+    if (project_file.files.length > 0) {
+        formData.append("project_file", project_file.files[0]);
+    }
+
+    const res = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+    msg.innerText = data.message;
+
+    if (data.status === "success") {
+        msg.style.color = "var(--neon-blue)";
+        setTimeout(() => window.location.href = "login.html", 1500);
+    } else {
+        msg.style.color = "red";
+    }
+}
+</script>
+<script>
+async function loadUserHeader() {
+    const token = localStorage.getItem("token");
+    const authArea = document.getElementById("authArea");
+
+    // لو ما في تسجيل دخول → خليه يعرض زر تسجيل الدخول
+    if (!token) return;
+
+    const res = await fetch("http://localhost:3000/api/auth/profile", {
+        method: "GET",
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    if (data.status !== "success") return;
+
+    const user = data.user;
+
+    // صورة افتراضية لو ما رفع صورة
+    const img = user.profile_image
+        ? `http://localhost:3000/uploads/${user.profile_image}`
+        : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+    // استبدال زر تسجيل الدخول بالكامل
+    authArea.innerHTML = `
+        <div class="user-profile-wrapper" onclick="toggleDropdown()">
+            <img src="${img}" class="dropdown-img" 
+                 style="width:45px;height:45px;border-radius:50%;border:2px solid var(--neon-blue);cursor:pointer;">
+        </div>
+
+        <div id="profileDropdown" class="profile-dropdown hidden">
+            <img src="${img}" class="dropdown-img" style="width:70px;height:70px;border-radius:50%;margin-bottom:10px;">
+            <h3 style="color:white;margin:5px 0;">${user.name}</h3>
+            <p style="color:#aaa;margin:0;">${user.email}</p>
+
+            <hr style="border-color:#333;margin:15px 0;">
+
+            <button class="search-btn w-100" onclick="window.location.href='profile.html'">
+                زيارة ملفك الشخصي
+            </button>
+
+            <button class="search-btn w-100" style="margin-top:10px;background:#ff3b3b;" onclick="logout()">
+                تسجيل الخروج
+            </button>
+        </div>
+    `;
+}
+
+function toggleDropdown() {
+    document.getElementById("profileDropdown").classList.toggle("hidden");
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
+
+loadUserHeader();
+</script>
+
+
+</body>
+</html>

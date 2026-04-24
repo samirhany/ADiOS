@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>الملف الشخصي - ADiOS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden { display: none !important; }
+
+        /* جعل البطاقة هي المرجع لموقع الزر */
+        .profile-sidebar {
+            position: relative; 
+        }
+
+        /* زر العودة الدائري الطافي فوق البطاقة */
+        .back-circle-btn {
+            position: absolute;
+            top: -15px; /* يبرز للأعلى خارج حدود البطاقة */
+            right: -15px; /* يبرز لليمين خارج حدود البطاقة */
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #7000ff, #00d4ff); /* تدرج نيون */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.6);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid #1a1a1a; /* فاصل داكن عن الخلفية */
+            z-index: 100;
+        }
+
+        .back-circle-btn:hover {
+            transform: rotate(-15deg) scale(1.1);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.8);
+        }
+
+        /* Tooltip يظهر عند مرور الماوس */
+        .back-circle-btn::after {
+            content: "العودة للخريجين";
+            position: absolute;
+            top: 50%;
+            right: 55px;
+            transform: translateY(-50%);
+            background-color: #111;
+            color: #00d4ff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            border: 1px solid #7000ff;
+            pointer-events: none;
+        }
+
+        .back-circle-btn:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-circle-btn i {
+            font-size: 20px;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo"><a href="index.html">ADiOS</a></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li id="authArea">
+                <a class="login-card" href="login.html">تسجيل الدخول</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-content">
+
+    <div class="main-wrapper">
+        <div class="profile-layout">
+
+            <div class="profile-sidebar">
+                
+                <a href="student.html" class="back-circle-btn" id="backToGrads">
+                    <i>&#10140;</i> 
+                </a>
+
+                <div class="profile-avatar">
+                    <div id="profileImage" class="profile-avatar-img"></div>
+                </div>
+
+                <div class="profile-basic">
+                    <h2 id="name" class="neon-text-blue">—</h2>
+                    <p id="username" class="profile-username">@username</p>
+                    <p id="email" class="profile-email">example@mail.com</p>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <h2 class="neon-text-purple">بيانات الحساب</h2>
+
+                <div class="profile-section">
+                    <div class="profile-row">
+                        <span class="profile-label">الجنس</span>
+                        <span class="profile-value" id="gender_text">—</span>
+                        <select id="gender" class="search-input small-input hidden" onchange="updateProfileAvatar()">
+                            <option value="">اختر الجنس</option>
+                            <option value="ذكر">ذكر</option>
+                            <option value="أنثى">أنثى</option>
+                        </select>
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('gender')">تعديل</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">تاريخ الميلاد</span>
+                        <span class="profile-value" id="birthdate_text">—</span>
+                        <input id="birthdate" type="date" class="search-input small-input hidden">
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('birthdate')">تعديل</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">العمر</span>
+                        <span class="profile-value" id="age_text">—</span>
+                        <span></span><span></span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">نوع الطالب</span>
+                        <span class="profile-value" id="student_type_text">—</span>
+                        <select id="student_type" class="search-input small-input hidden" onchange="onStudentTypeChange()">
+                            <option value="">اختر نوع الطالب</option>
+                            <option value="طالب">طالب</option>
+                            <option value="طالب ذو خبرة">طالب ذو خبرة</option>
+                            <option value="خريج">خريج</option>
+                        </select>
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('student_type')">تعديل</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">التخصص</span>
+                        <span class="profile-value" id="major_text">—</span>
+                        <select id="major" class="search-input small-input hidden">
+                            <option value="">اختر التخصص</option>
+                            <option value="برمجة الويب">برمجة الويب</option>
+                            <option value="الأمن السيبراني">الأمن السيبراني</option>
+                            <option value="الشبكات والحوسبة السحابية">الشبكات والحوسبة السحابية</option>
+                            <option value="إدارة علم البيانات والذكاء الاصطناعي">إدارة علم البيانات والذكاء الاصطناعي</option>
+                            <option value="برمجة التطبيقات">برمجة التطبيقات</option>
+                        </select>
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('major')">تعديل</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">المهارة</span>
+                        <span class="profile-value" id="skill_title_text">—</span>
+                        <input id="skill_title" class="search-input small-input hidden" placeholder="مثال: Frontend Developer">
+                        <div class="edit-section">
+                            <button id="skill_edit_btn" class="profile-edit-btn" onclick="toggleEdit('skill_title')">تعديل</button>
+                        </div>
+                        <span id="skill_not_available" class="profile-value hidden" style="color:#ff4d4d;">غير متوفر للطالب</span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">رقم الواتساب</span>
+                        <span class="profile-value" id="whatsapp_text">—</span>
+                        <input id="whatsapp" class="search-input small-input hidden" placeholder="0590000000">
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('whatsapp')">تعديل</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">البريد الإلكتروني</span>
+                        <span class="profile-value" id="email_text">—</span>
+                        <input id="email_edit" class="search-input small-input hidden" placeholder="example@mail.com">
+                        <div class="edit-section">
+                            <button class="profile-edit-btn" onclick="toggleEdit('email')">تعديل</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-section">
+                    <h2 class="neon-text-purple" style="margin-top:30px;">ملفات المشروع</h2>
+                    <div class="profile-section">
+                        <div class="profile-row">
+                            <span class="profile-label">ملف المشروع الحالي</span>
+                            <button class="search-btn small-btn" id="projectBtn" style="display:none;">تحميل الملف</button>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-label">رفع ملف جديد</span>
+                            <input type="file" id="project_file">
+                        </div>
+                        <button class="search-btn w-100" style="margin-top:15px;" onclick="saveProfile()">
+                            حفظ جميع التعديلات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+    }
+
+    function updateProfileAvatar(gender) {
+        const imgDiv = document.getElementById("profileImage");
+        let imageUrl = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        if (gender === "ذكر") imageUrl = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+        else if (gender === "أنثى") imageUrl = "https://cdn-icons-png.flaticon.com/512/3135/3135768.png";
+        imgDiv.style.backgroundImage = `url("${imageUrl}")`;
+    }
+
+    function fillProfile(user, isOwner) {
+        document.getElementById("name").innerText = user.name;
+        document.getElementById("username").innerText = "@" + user.username;
+        document.getElementById("email").innerText = user.email;
+
+        document.getElementById("gender_text").innerText = user.gender || "—";
+        document.getElementById("birthdate_text").innerText = user.birthdate || "—";
+        document.getElementById("age_text").innerText = user.age ? `${user.age} سنة` : "—";
+        document.getElementById("student_type_text").innerText = user.student_type || "—";
+        document.getElementById("major_text").innerText = user.major || "—";
+        document.getElementById("skill_title_text").innerText = user.skill_title || "—";
+        document.getElementById("whatsapp_text").innerText = user.whatsapp || "—";
+        document.getElementById("email_text").innerText = user.email;
+
+        if (isOwner) {
+            document.getElementById("gender").value = user.gender || "";
+            document.getElementById("birthdate").value = user.birthdate || "";
+            document.getElementById("student_type").value = user.student_type || "";
+            document.getElementById("major").value = user.major || "";
+            document.getElementById("skill_title").value = user.skill_title || "";
+            document.getElementById("whatsapp").value = user.whatsapp || "";
+            document.getElementById("email_edit").value = user.email;
+        }
+
+        updateProfileAvatar(user.gender);
+
+        // التطبيق العملي لإخفاء أدوات التعديل
+        if (!isOwner) {
+            document.querySelectorAll(".edit-section").forEach(sec => sec.style.display = "none");
+            const inputs = document.querySelectorAll(".search-input, input, select");
+            inputs.forEach(input => {
+                if(!input.id.includes("search")) input.classList.add("hidden");
+            });
+        }
+    }
+
+    async function loadProfile() {
+        const id = getIdFromURL();
+        if (id) {
+            try {
+                const res = await fetch(`http://localhost:3000/api/auth/user/${id}`);
+                const data = await res.json();
+                if (data.status === "success") fillProfile(data.user, false);
+                return;
+            } catch (err) { console.error(err); }
+        }
+
+        const token = localStorage.getItem("token");
+        if (!token) return window.location.href = "login.html";
+
+        try {
+            const res = await fetch("http://localhost:3000/api/auth/profile", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+            const data = await res.json();
+            if (data.status === "success") fillProfile(data.user, true);
+            else window.location.href = "login.html";
+        } catch (err) { console.error(err); }
+    }
+
+    function updateSkillUI(type) {
+        const editBtn = document.getElementById("skill_edit_btn");
+        const notAvailable = document.getElementById("skill_not_available");
+        const skillText = document.getElementById("skill_title_text");
+        if (type === "طالب") {
+            if(editBtn) editBtn.parentElement.classList.add("hidden");
+            if(notAvailable) notAvailable.classList.remove("hidden");
+            skillText.innerText = "—";
+        } else {
+            if(editBtn) editBtn.parentElement.classList.remove("hidden");
+            if(notAvailable) notAvailable.classList.add("hidden");
+        }
+    }
+
+    function onStudentTypeChange() {
+        updateSkillUI(document.getElementById("student_type").value);
+    }
+
+    function toggleEdit(field) {
+        const type = document.getElementById("student_type").value || document.getElementById("student_type_text").innerText;
+        if (field === "skill_title" && type === "طالب") return alert("عذراً، الطالب لا يملك مهارة وظيفية محددة بعد.");
+        document.getElementById(field + "_text").classList.toggle("hidden");
+        document.getElementById(field).classList.toggle("hidden");
+    }
+
+    function saveProfile() {
+        alert("سيتم إرسال التحديثات إلى السيرفر وحفظها في ADiOS");
+    }
+
+    loadProfile();
+</script>
+</body>
+</html>
