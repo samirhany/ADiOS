@@ -1,266 +1,149 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>ADiOS - تسجيل الدخول</title>
-    <style>
-        /* CSS الموحد بنمط النيون */
-        :root {
-            --bg-color: #0d0d12;
-            --neon-blue: #00d2ff;
-            --neon-purple: #9d50bb;
-            --text-white: #e0e0e0;
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-white);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .auth-container {
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-        }
-
-        .auth-box {
-            background: var(--card-bg);
-            border: 1px solid rgba(157, 80, 187, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-
-        .neon-blue { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
-        .neon-purple { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
-
-        .input-group {
-            margin-bottom: 15px;
-            text-align: right;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: white;
-            box-sizing: border-box;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .remember-me input { width: auto; }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: 0.3s;
-            margin-bottom: 15px;
-        }
-
-        .btn-login {
-            background: linear-gradient(45deg, var(--neon-blue), #0080ff);
-            color: white;
-        }
-
-        .btn-login:hover { box-shadow: 0 0 15px var(--neon-blue); }
-
-        .switch-text {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        .switch-link {
-            color: var(--neon-purple);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-
-        /* تأكد أن كلاس hidden يقوم بالإخفاء الفعلي */
-.hidden {
-    display: none !important;
-}
-
-/* تأكد أن الطبقة السوداء مخفية افتراضياً */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex; /* سيتم تفعيله فقط عند إزالة كلاس hidden */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-
-
-        /* رسالة النجاح المنبثقة */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .success-card {
-            background: #16161e;
-            padding: 40px;
-            border-radius: 20px;
-            border: 2px solid var(--neon-blue);
-            text-align: center;
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        /* تنسيق خانة رفع الملفات */
-        .file-label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.8rem;
-            color: var(--neon-blue);
-        }
-
-    </style>
+    <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="auth-container">
-        <div id="loginForm" class="auth-box">
-            <h2 class="neon-blue">تسجيل الدخول</h2>
-            <div class="input-group">
-                <input type="text" id="loginUser" placeholder="اسم المستخدم">
-            </div>
-            <div class="input-group">
-                <input type="password" id="loginPass" placeholder="كلمة المرور">
-            </div>
-            <div class="remember-me">
-                <input type="checkbox" id="remember">
-                <label for="remember">تذكرني</label>
-            </div>
-            <button class="btn btn-login" onclick="handleLogin()">تسجيل الدخول</button>
-            <p class="switch-text">ليس لديك حساب؟ <span class="switch-link" onclick="toggleForm()">أنشئ حساباً</span></p>
-        </div>
+<!-- الهيدر -->
+<header>
+    <div class="logo"><a href="index.html">ADiOS</a></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a class="login-card" href="login.html">تسجيل الدخول</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <div id="registerForm" class="auth-box hidden">
-            <h2 class="neon-purple">إنشاء حساب جديد</h2>
-            <div class="input-group">
-                <input type="text" placeholder="اسم المستخدم">
-            </div>
-            <div class="input-group">
-                <input type="email" placeholder="البريد الإلكتروني">
-            </div>
-            <div class="input-group">
-                <input type="password" placeholder="كلمة المرور">
-            </div>
-            <div class="input-group">
-                <select id="userRole" onchange="checkRole()">
-                    <option value="student">طالب</option>
-                    <option value="pro-student">طالب مهاري</option>
-                    <option value="graduate">خريج</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <input type="text" placeholder="التخصص">
-            </div>
-            <div class="input-group">
-                <input type="text" id="skillInput" placeholder="المهارة" disabled style="opacity: 0.5;">
-            </div>
-            <div class="input-group">
-                <input type="tel" placeholder="رقم الواتساب (مثال: 00970...)">
-            </div>
-            <div class="input-group">
-                <label class="file-label">ارفع مشاريعك (PDF / Zip)</label>
-                <input type="file">
-            </div>
-            <div class="input-group">
-                <label class="file-label">الصورة الشخصية</label>
-                <input type="file" accept="image/*">
-            </div>
-            <button class="btn btn-login" onclick="handleLogin()">إنشاء الحساب</button>
-            <p class="switch-text">لديك حساب بالفعل؟ <span class="switch-link" onclick="toggleForm()">سجل دخولك</span></p>
-        </div>
+<!-- صفحة تسجيل الدخول -->
+<div class="auth-container">
+    <div class="auth-box">
+
+        <h2 class="neon-text-blue">تسجيل الدخول</h2>
+
+        <!-- اسم المستخدم -->
+        <label>اسم المستخدم</label>
+        <input id="username" class="search-input" placeholder="مثال: samir123">
+
+        <!-- كلمة المرور -->
+        <label>كلمة المرور</label>
+        <input id="password" type="password" class="search-input" placeholder="••••••••">
+
+        <button class="search-btn w-100" onclick="login()">دخول</button>
+
+        <p id="msg"></p>
+
+        <p class="auth-switch">ليس لديك حساب؟ <span onclick="goRegister()">إنشاء حساب</span></p>
     </div>
+</div>
 
-    <div id="successOverlay" class="overlay hidden">
-        <div class="success-card">
-            <h3 style="color: white; margin-bottom: 20px;">تم تسجيل دخولك بنجاح! 🎉</h3>
-            <button class="btn btn-login" style="margin-bottom: 0;" onclick="closeSuccess()">متابعة</button>
-        </div>
-    </div>
+<script>
+function goRegister() {
+    window.location.href = "register.html";
+}
 
-    <script>
-        // التبديل بين النماذج
-        function toggleForm() {
-            document.getElementById('loginForm').classList.toggle('hidden');
-            document.getElementById('registerForm').classList.toggle('hidden');
-        }
+async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const msg = document.getElementById("msg");
 
-        // قفل خانة المهارة إذا كان المختار "طالب"
-        function checkRole() {
-            const role = document.getElementById('userRole').value;
-            const skillInput = document.getElementById('skillInput');
+    try {
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+            // تخزين التوكن
+            localStorage.setItem("token", data.token);
             
-            if (role === 'student') {
-                skillInput.disabled = true;
-                skillInput.style.opacity = "0.5";
-                skillInput.value = "";
-            } else {
-                skillInput.disabled = false;
-                skillInput.style.opacity = "1";
-            }
-        }
+            msg.style.color = "#00ffcc";
+            msg.innerText = "تم تسجيل الدخول! جاري التحويل...";
 
-        // محاكاة تسجيل الدخول وإظهار الرسالة
-        function handleLogin() {
-            document.getElementById('successOverlay').classList.remove('hidden');
+            // التحويل المباشر
+            console.log("نجح الدخول، يتم التحويل الآن إلى profile.html");
+            window.location.href = "profile.html"; 
+            
+        } else {
+            msg.style.color = "#ff3b3b";
+            msg.innerText = data.message || "خطأ في الدخول";
         }
+    } catch (err) {
+        console.error("Fetch Error:", err);
+        msg.innerText = "تعذر الاتصال بالسيرفر";
+    }
+}
 
-        // إغلاق رسالة النجاح والتوجه لصفحة الطلاب (أو الرئيسية)
-        function closeSuccess() {
-            document.getElementById('successOverlay').classList.add('hidden');
-            // هنا يمكنك التوجه للصفحة المطلوبة
-            window.location.href = 'student.html'; 
-        }
-    </script>
+async function loadUserHeader() {
+    const token = localStorage.getItem("token");
+    const authArea = document.getElementById("authArea");
+
+    // لو ما في تسجيل دخول → خليه يعرض زر تسجيل الدخول
+    if (!token) return;
+
+    const res = await fetch("http://localhost:3000/api/auth/profile", {
+        method: "GET",
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    if (data.status !== "success") return;
+
+    const user = data.user;
+
+    // صورة افتراضية لو ما رفع صورة
+    const img = user.profile_image
+        ? `http://localhost:3000/uploads/${user.profile_image}`
+        : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+    // استبدال زر تسجيل الدخول بالكامل
+    authArea.innerHTML = `
+        <div class="user-profile-wrapper" onclick="toggleDropdown()">
+            <img src="${img}" class="dropdown-img" 
+                 style="width:45px;height:45px;border-radius:50%;border:2px solid var(--neon-blue);cursor:pointer;">
+        </div>
+
+        <div id="profileDropdown" class="profile-dropdown hidden">
+            <img src="${img}" class="dropdown-img" style="width:70px;height:70px;border-radius:50%;margin-bottom:10px;">
+            <h3 style="color:white;margin:5px 0;">${user.name}</h3>
+            <p style="color:#aaa;margin:0;">${user.email}</p>
+
+            <hr style="border-color:#333;margin:15px 0;">
+
+            <button class="search-btn w-100" onclick="window.location.href='profile.html'">
+                زيارة ملفك الشخصي
+            </button>
+
+            <button class="search-btn w-100" style="margin-top:10px;background:#ff3b3b;" onclick="logout()">
+                تسجيل الخروج
+            </button>
+        </div>
+    `;
+}
+
+function toggleDropdown() {
+    document.getElementById("profileDropdown").classList.toggle("hidden");
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
+
+loadUserHeader();
+
+
+</script>
+
+
+
 </body>
 </html>
