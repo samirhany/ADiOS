@@ -285,15 +285,7 @@ nav ul li a:hover {
     margin-bottom: 15px;
 }
 
-.student-img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #333, #555);
-    border: 2px solid var(--neon-blue);
-    background-image: url('https://via.placeholder.com/60'); /* يمكنك استبدالها بصورة حقيقية */
-    background-size: cover;
-}
+
 
 .student-info {
     display: flex;
@@ -617,6 +609,15 @@ nav ul li a:hover {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     z-index: 1000;
     text-align: center;
+}
+.student-img {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid var(--neon-blue);
 }
 
 
