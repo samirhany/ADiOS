@@ -20,7 +20,9 @@
     </nav>
 
     <div id="authArea">
-        <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+        <div id="authArea">
+    <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+</div>
     </div>
 </header>
 
@@ -70,12 +72,13 @@ async function loadUserHeader() {
         const data = await res.json();
         if (data.status !== "success") return;
 
-        const user = data.user;
-        const img = user.gender === "ذكر"
-            ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-            : user.gender === "أنثى"
-            ? "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-            : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+        const img =
+            user.gender === "ذكر"
+                ? "http://localhost:3000/profile_photo/male1.png"
+        :   user.gender === "أنثى"
+                 ? "http://localhost:3000/profile_photo/female.png"
+                    : "http://localhost:3000/profile_photo/not.png";
 
         authArea.innerHTML = `
             <div class="user-profile-wrapper" onclick="toggleDropdown()">
@@ -140,12 +143,14 @@ function loadMore() {
     const slice = allResults.slice(currentIndex, currentIndex + 6);
     currentIndex += 6;
 
-    slice.forEach(user => {
-        const img = user.gender === "ذكر"
-            ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+slice.forEach(user => {
+    const img =
+        user.gender === "ذكر"
+            ? "http://localhost:3000/profile_photo/male1.png"
             : user.gender === "أنثى"
-            ? "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-            : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            ? "http://localhost:3000/profile_photo/female.png"
+            : "http://localhost:3000/profile_photo/not.png";
+
 
         const card = document.createElement("div");
         card.className = "student-card";
@@ -177,5 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
     searchStudents();
 });
 </script>
+<script src="script.js"></script>
 </body>
 </html>
