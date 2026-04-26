@@ -2,13 +2,15 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200">
     <title>ADiOS - الرئيسية</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>        <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>
+        <nav>
             <ul>
                 <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="quiz.html">الاختبار</a></li>
@@ -16,7 +18,10 @@
                 <li><a href="student.html">الخريجون</a></li>
             </ul>
         </nav>
-<button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>    </header>
+        <div id="authArea">
+            <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+        </div>
+    </header>
 
     <section class="hero">
         <h1>المرجع الأول لطلاب تكنولوجيا المعلومات في اختيار ميولهم التعليمي والمهني</h1>
@@ -34,5 +39,6 @@
         </div>
     </section>
 
+    <script src="script.js"></script>
 </body>
 </html>
