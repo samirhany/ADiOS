@@ -11,12 +11,11 @@
 <!-- الهيدر -->
 <header>
     <div class="logo"><a href="index.html">ADiOS</a></div>
-    <nav>
-        <ul>
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a class="login-card" href="login.html">تسجيل الدخول</a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+    </ul>
+</nav>
 </header>
 
 <!-- صفحة تسجيل الدخول -->
@@ -81,68 +80,11 @@ async function login() {
     }
 }
 
-async function loadUserHeader() {
-    const token = localStorage.getItem("token");
-    const authArea = document.getElementById("authArea");
-
-    // لو ما في تسجيل دخول → خليه يعرض زر تسجيل الدخول
-    if (!token) return;
-
-    const res = await fetch("http://localhost:3000/api/auth/profile", {
-        method: "GET",
-        headers: { "Authorization": "Bearer " + token }
-    });
-
-    const data = await res.json();
-
-    if (data.status !== "success") return;
-
-    const user = data.user;
-
-    // صورة افتراضية لو ما رفع صورة
-    const img = user.profile_image
-        ? `http://localhost:3000/uploads/${user.profile_image}`
-        : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-
-    // استبدال زر تسجيل الدخول بالكامل
-    authArea.innerHTML = `
-        <div class="user-profile-wrapper" onclick="toggleDropdown()">
-            <img src="${img}" class="dropdown-img" 
-                 style="width:45px;height:45px;border-radius:50%;border:2px solid var(--neon-blue);cursor:pointer;">
-        </div>
-
-        <div id="profileDropdown" class="profile-dropdown hidden">
-            <img src="${img}" class="dropdown-img" style="width:70px;height:70px;border-radius:50%;margin-bottom:10px;">
-            <h3 style="color:white;margin:5px 0;">${user.name}</h3>
-            <p style="color:#aaa;margin:0;">${user.email}</p>
-
-            <hr style="border-color:#333;margin:15px 0;">
-
-            <button class="search-btn w-100" onclick="window.location.href='profile.html'">
-                زيارة ملفك الشخصي
-            </button>
-
-            <button class="search-btn w-100" style="margin-top:10px;background:#ff3b3b;" onclick="logout()">
-                تسجيل الخروج
-            </button>
-        </div>
-    `;
-}
-
-function toggleDropdown() {
-    document.getElementById("profileDropdown").classList.toggle("hidden");
-}
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-}
-
-loadUserHeader();
 
 
 </script>
 
+    <script src="script.js"></script>
 
 
 </body>
