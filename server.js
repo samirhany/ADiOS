@@ -18,6 +18,9 @@ app.use(cors());
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.use("/profile_photo", express.static("profile_photo"));
+
+
 // Routes ✅ مسار صحيح
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
@@ -27,3 +30,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
+
