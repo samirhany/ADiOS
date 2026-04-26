@@ -39,6 +39,18 @@
         <label>كلمة المرور</label>
         <input id="password" type="password" class="search-input" placeholder="••••••••">
 
+        <!-- الجنس -->
+        <label>الجنس</label>
+        <select id="gender" class="search-input">
+            <option value="">اختر الجنس</option>
+            <option value="ذكر">ذكر</option>
+            <option value="أنثى">أنثى</option>
+        </select>
+
+        <!-- تاريخ الميلاد -->
+        <label>تاريخ الميلاد</label>
+        <input id="birthdate" type="date" class="search-input">
+
         <!-- نوع الطالب -->
         <label>نوع الطالب</label>
         <select id="student_type" class="search-input" onchange="toggleSkill()">
@@ -67,15 +79,12 @@
         <label>رقم الواتساب</label>
         <input id="whatsapp" class="search-input" placeholder="مثال: 0590000000">
 
-        <!-- صورة شخصية -->
-        <label>الصورة الشخصية</label>
-        <input id="profile_image" type="file" accept="image/*">
+        <!-- روابط العمل -->
+        <label>روابط العمل</label>
+        <input id="work_links" class="search-input" placeholder="مثال: https://github.com/samir">
 
-        <!-- ملف المشروع -->
-        <label>ملف المشروع</label>
-        <input id="project_file" type="file">
+       <button type="button" class="search-btn w-100" onclick="register()">إنشاء حساب</button>
 
-        <button class="search-btn w-100" onclick="register()">إنشاء حساب</button>
 
         <p id="msg"></p>
 
@@ -104,33 +113,31 @@ function toggleSkill() {
     }
 }
 
+
 async function register() {
-    const formData = new FormData();
-
-    formData.append("username", username.value);
-    formData.append("name", name.value);
-    formData.append("email", email.value);
-    formData.append("password", password.value);
-    formData.append("student_type", student_type.value);
-    formData.append("major", major.value);
-    formData.append("skill_title", skill_title.value);
-    formData.append("whatsapp", whatsapp.value);
-
-    if (profile_image.files.length > 0) {
-        formData.append("profile_image", profile_image.files[0]);
-    }
-
-    if (project_file.files.length > 0) {
-        formData.append("project_file", project_file.files[0]);
-    }
+    const userData = {
+        username: document.getElementById("username").value,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        gender: document.getElementById("gender").value,
+        birthdate: document.getElementById("birthdate").value,
+        student_type: document.getElementById("student_type").value,
+        major: document.getElementById("major").value,
+        skill_title: document.getElementById("skill_title").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        work_links: document.getElementById("work_links").value
+    };
 
     const res = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
     });
 
-    const data = await res.json();
-    msg.innerText = data.message;
+        const data = await res.json();
+        const msg = document.getElementById("msg");
+msg.innerText = data.message;
 
     if (data.status === "success") {
         msg.style.color = "var(--neon-blue)";
@@ -140,67 +147,6 @@ async function register() {
     }
 }
 </script>
-<script>
-async function loadUserHeader() {
-    const token = localStorage.getItem("token");
-    const authArea = document.getElementById("authArea");
-
-    // لو ما في تسجيل دخول → خليه يعرض زر تسجيل الدخول
-    if (!token) return;
-
-    const res = await fetch("http://localhost:3000/api/auth/profile", {
-        method: "GET",
-        headers: { "Authorization": "Bearer " + token }
-    });
-
-    const data = await res.json();
-
-    if (data.status !== "success") return;
-
-    const user = data.user;
-
-    // صورة افتراضية لو ما رفع صورة
-    const img = user.profile_image
-        ? `http://localhost:3000/uploads/${user.profile_image}`
-        : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-
-    // استبدال زر تسجيل الدخول بالكامل
-    authArea.innerHTML = `
-        <div class="user-profile-wrapper" onclick="toggleDropdown()">
-            <img src="${img}" class="dropdown-img" 
-                 style="width:45px;height:45px;border-radius:50%;border:2px solid var(--neon-blue);cursor:pointer;">
-        </div>
-
-        <div id="profileDropdown" class="profile-dropdown hidden">
-            <img src="${img}" class="dropdown-img" style="width:70px;height:70px;border-radius:50%;margin-bottom:10px;">
-            <h3 style="color:white;margin:5px 0;">${user.name}</h3>
-            <p style="color:#aaa;margin:0;">${user.email}</p>
-
-            <hr style="border-color:#333;margin:15px 0;">
-
-            <button class="search-btn w-100" onclick="window.location.href='profile.html'">
-                زيارة ملفك الشخصي
-            </button>
-
-            <button class="search-btn w-100" style="margin-top:10px;background:#ff3b3b;" onclick="logout()">
-                تسجيل الخروج
-            </button>
-        </div>
-    `;
-}
-
-function toggleDropdown() {
-    document.getElementById("profileDropdown").classList.toggle("hidden");
-}
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-}
-
-loadUserHeader();
-</script>
-
 
 </body>
 </html>
