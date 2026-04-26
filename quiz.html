@@ -1,27 +1,549 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200">
     <title>ADiOS - الاختبار</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-page {
+            padding-top: 90px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── قسم البداية ── */
+        #hero-section {
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .quiz-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0,210,255,0.2);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-quote {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(157,80,187,0.25);
+            border-right: 4px solid var(--neon-purple);
+            border-radius: 12px;
+            padding: 22px 26px;
+            margin: 2rem 0 2.5rem;
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #c0c0d8;
+            text-align: right;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0,210,255,0.25);
+            transition: all 0.3s;
+        }
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(157,80,187,0.5);
+        }
+
+        /* ── قسم الأسئلة ── */
+        #quiz-container {
+            display: none;
+            width: 100%;
+            max-width: 740px;
+            padding: 2rem 1.5rem 5rem;
+        }
+
+        .progress-wrap { margin-bottom: 2rem; }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .q-counter {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+        }
+        .progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            transition: width 0.5s ease;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .q-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #e0e0f0;
+        }
+
+        .options-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1.5px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Tajawal', sans-serif;
+            color: #b0b0c8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .option-btn:hover {
+            border-color: rgba(0,210,255,0.35);
+            color: #e0e0f0;
+        }
+        .option-btn.selected {
+            border-color: var(--neon-blue);
+            color: white;
+            background: rgba(0,210,255,0.07);
+            box-shadow: 0 0 15px rgba(0,210,255,0.12);
+        }
+
+        .opt-label {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: rgba(255,255,255,0.07);
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.25s;
+            flex-shrink: 0;
+        }
+        .option-btn.selected .opt-label {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+        }
+
+        .btn-next-wrap { margin-top: 1.8rem; text-align: center; }
+        .btn-next {
+            display: none;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            padding: 13px 42px;
+            border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(0,210,255,0.2);
+            transition: all 0.3s;
+        }
+        .btn-next:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 28px rgba(157,80,187,0.45);
+        }
+
+        /* ── قسم النتيجة ── */
+        #result-section {
+            display: none;
+            width: 100%;
+            max-width: 740px;
+            padding: 3rem 1.5rem 5rem;
+        }
+
+        .result-quote {
+            background: rgba(157,80,187,0.07);
+            border: 1px solid rgba(157,80,187,0.22);
+            border-right: 4px solid var(--neon-purple);
+            border-radius: 12px;
+            padding: 18px 24px;
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #b8b8d0;
+            margin-bottom: 2rem;
+            text-align: right;
+        }
+
+        .track-card {
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            padding: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track-icon { font-size: 3rem; display: block; margin-bottom: 0.8rem; }
+        .track-name { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.3rem; }
+        .track-sub { font-size: 0.92rem; color: #64748b; margin-bottom: 1.5rem; font-style: italic; }
+
+        .track-detail-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--neon-purple);
+            margin: 1.2rem 0 0.4rem;
+            border-bottom: 1px solid rgba(157,80,187,0.18);
+            padding-bottom: 5px;
+        }
+        .track-detail-text { font-size: 0.9rem; color: #9ca3b8; line-height: 1.8; }
+
+        .multi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-reset {
+            display: block;
+            margin: 0 auto;
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            padding: 12px 38px;
+            border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--neon-purple);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-reset:hover {
+            background: var(--neon-purple);
+            color: white;
+            box-shadow: 0 0 20px rgba(157,80,187,0.4);
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">ADiOS</a></div>
+        <div class="logo"><a href="index.html">ADiOS</a></div>
         <nav>
             <ul>
                 <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="quiz.html">الاختبار</a></li>
+                <li><a href="quiz.html" style="color:var(--neon-blue)">الاختبار</a></li>
                 <li><a href="masar.html">المسار</a></li>
                 <li><a href="student.html">الخريجون</a></li>
             </ul>
         </nav>
-<button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
-    </header>
+        <div id="authArea">
+            <button class="login-card" onclick="location.href='login.html'">تسجيل الدخول</button>
+        </div>    </header>
 
-    <div class="page-content">
-        <h1 style="color: var(--neon-blue);">اختبار تحديد الميول التقنية</h1>
-        <p>استعد للإجابة على الأسئلة التي سترسم ملامح مستقبلك المهني.</p>
-        </div>
+    <div class="quiz-page">
+
+        <!-- قسم البداية -->
+        <section id="hero-section">
+            <h1 class="quiz-title">اكتشف مسارك التقني</h1>
+            <div class="hero-quote">
+                "هذا الاختبار رحلة ترفيهية قصيرة، تترجم مواقف حياتك اليومية إلى مسارات تقنية لتكتشف التخصص الذي يشبه طريقة تفكيرك."
+            </div>
+            <button class="btn-start" onclick="startQuiz()">✦ ابدأ الاختبار الآن</button>
+        </section>
+
+        <!-- قسم الأسئلة -->
+        <section id="quiz-container">
+            <div class="progress-wrap">
+                <div class="progress-info">
+                    <span class="q-counter" id="q-counter">سؤال 1 / 10</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="q-text" id="q-text"></div>
+                <div class="options-wrap" id="options-wrap"></div>
+            </div>
+
+            <div class="btn-next-wrap">
+                <button class="btn-next" id="btn-next" onclick="nextQuestion()">التالي ◄</button>
+            </div>
+        </section>
+
+        <!-- قسم النتيجة -->
+        <section id="result-section">
+            <div class="result-quote">
+                "لا تقلق من التعقيد؛ الأسئلة مصممة لتقريب لغة التكنولوجيا إلى واقعك العملي وتساعدك على اختيار شغفك الأنسب بكل بساطة."
+            </div>
+            <div id="result-cards"></div>
+            <button class="btn-reset" onclick="resetQuiz()">↺ إعادة الاختبار</button>
+        </section>
+
+    </div>
+
+    <script>
+        const QUESTIONS = [
+            {
+                text: "إذا طُلب منك بناء «متجر لبيع الملابس»، أي وسيلة تفضل أن يستخدمها الناس؟",
+                options: [
+                    { label: "أ", text: "موقع يفتحه أي شخص من أي جهاز عبر المتصفح.", scores: { web: 2 } },
+                    { label: "ب", text: "تطبيق يتم تحميله من المتجر ويكون مخصصاً وسريعاً على الموبايل.", scores: { mobile: 2 } }
+                ]
+            },
+            {
+                text: "ما هو نوع «البناء» الذي يستهويك أكثر؟",
+                options: [
+                    { label: "أ", text: "بناء «مول تجاري» ضخم يضم أقساماً كثيرة ومطاعم وخدمات.", scores: { web: 2 } },
+                    { label: "ب", text: "ابتكار «أداة يدوية» ذكية يحملها الشخص في جيبه وتسهل حياته اليومية.", scores: { mobile: 2 } }
+                ]
+            },
+            {
+                text: "تخيل أنك تدير «مطاراً»، أين ستضع تركيزك الأكبر؟",
+                options: [
+                    { label: "أ", text: "تأمين المسارات وجداول الرحلات لضمان وصول الجميع في وقتهم دون تصادم.", scores: { networking: 2 } },
+                    { label: "ب", text: "تفتيش الحقائب وكشف المهربين ومنع أي شخص غير مصرح له من الدخول.", scores: { security: 2 } }
+                ]
+            },
+            {
+                text: "إذا حدثت مشكلة في «نظام مياه المدينة»، أي مهمة ستختار؟",
+                options: [
+                    { label: "أ", text: "إعادة تصميم الأنابيب لضمان وصول الماء لكل حي بسرعة وقوة.", scores: { networking: 2 } },
+                    { label: "ب", text: "البحث عن «السموم» أو «التخريب» الذي قد يلوث المياه ومنعه.", scores: { security: 2 } }
+                ]
+            },
+            {
+                text: "لو كنت تعمل في «فريق كرة قدم»، ما هو الدور الذي تفضله؟",
+                options: [
+                    { label: "أ", text: "تصميم شكل القميص وتنظيم دخول الجماهير للملعب (التفاعل مع الناس).", scores: { web: 2 } },
+                    { label: "ب", text: "تحليل أرقام اللاعبين وتوقع النتيجة القادمة بناءً على المباريات السابقة.", scores: { data: 2 } }
+                ]
+            },
+            {
+                text: "إذا كنت ستؤلف «كتاباً»، ما الذي يهمك أكثر؟",
+                options: [
+                    { label: "أ", text: "كيف سيبدو الغلاف وتنسيق الصفحات لتكون تجربة القراءة ممتعة.", scores: { web: 2 } },
+                    { label: "ب", text: "جمع آلاف المعلومات والحقائق من التاريخ لاستنتاج ما سيحدث في المستقبل.", scores: { data: 2 } }
+                ]
+            },
+            {
+                text: "في عالم «السيارات»، أي مهندس تود أن تكون؟",
+                options: [
+                    { label: "أ", text: "المهندس الذي يضيف ميزات الرفاهية والسرعة وسهولة القيادة للسائق.", scores: { mobile: 2 } },
+                    { label: "ب", text: "المهندس الذي يختبر قوة الهيكل وكفاءة المكابح ويمنع السارقين من اختراق السيارة.", scores: { security: 2 } }
+                ]
+            },
+            {
+                text: "لو كنت تدير «بنكاً»، ما هو مشروعك الأول؟",
+                options: [
+                    { label: "أ", text: "تصميم ماكينة صراف آلي سهلة جداً تجعل السحب يتم في ثوانٍ.", scores: { mobile: 2 } },
+                    { label: "ب", text: "بناء جدار حماية ونظام مراقبة يمنع أي محاولة سرقة حتى لو كانت من الداخل.", scores: { security: 2 } }
+                ]
+            },
+            {
+                text: "تخيل أنك تدير «شركة شحن»، ما الذي يشغل تفكيرك؟",
+                options: [
+                    { label: "أ", text: "توفير أسطول سيارات ومستودعات ضخمة تربط المدن ببعضها البعض.", scores: { networking: 2 } },
+                    { label: "ب", text: "دراسة عناوين الناس لمعرفة أي المناطق ستطلب بضائع أكثر في العيد لزيادة الربح.", scores: { data: 2 } }
+                ]
+            },
+            {
+                text: "إذا كنت «كهربائياً»، ما هي المهمة التي تختارها؟",
+                options: [
+                    { label: "أ", text: "توصيل الأسلاك في المبنى بأكمله لضمان وصول الكهرباء لكل غرفة بلا استثناء.", scores: { networking: 2 } },
+                    { label: "ب", text: "برمجة العدادات الذكية لتقوم بقطع الكهرباء تلقائياً إذا زاد الاستهلاك عن حد معين.", scores: { data: 2 } }
+                ]
+            }
+        ];
+
+        const TRACKS = {
+            web: {
+                icon: '🌐', color: '#00d2ff',
+                name: 'برمجة الويب الشامل',
+                nameEn: 'Full-Stack Web Development',
+                tagline: 'هذا التخصص يشبه بناء وإدارة «المطعم»',
+                details: [
+                    { title: '🍽️ تصميم الصالة مقابل عمل المطبخ', text: 'إذا دخلت مطعماً وأعجبك الديكور المريح وطريقة عرض القائمة، ثم طلبت وجبة فقام المطبخ بتجهيزها وإرسالها لك؛ هل تعلم أن هناك شخصاً وظيفته التأكد من أن «شكل الطاولة» (واجهة) متناسق تماماً مع «سرعة الطباخ» (خلفية)؟' },
+                    { title: '📁 الواجهة والتخزين', text: 'عندما تملأ استمارة ورقية في بنك وتُسلمها للموظف ليضعها في الأرشيف؛ كيف نضمن أن شكل الورقة سهل التعبئة وأن الأرشيف منظم بحيث نجدها لاحقاً؟' }
+                ]
+            },
+            networking: {
+                icon: '☁️', color: '#34d399',
+                name: 'الشبكات والحوسبة السحابية',
+                nameEn: 'Networking & Cloud Computing',
+                tagline: 'هذا التخصص يشبه «شركات الاتصالات والبريد والكهرباء»',
+                details: [
+                    { title: '✉️ ساعي البريد العالمي', text: 'كيف تصل رسالة من بيتك في مدينة ما إلى بيت صديقك في قارة أخرى عبر مسارات محددة وبسرعة هائلة دون أن تضيع في الطريق؟' },
+                    { title: '🏭 استئجار المخازن بدل البناء', text: 'بدلاً من أن تبني مخزناً كبيراً في بيتك وتدفع ثمن بنائه وتأمينه، لماذا لا تستأجر مساحة في «مخزن ضخم» مشترك يديره غيرك وتدفع فقط مقابل المساحة التي تستخدمها؟' }
+                ]
+            },
+            data: {
+                icon: '🤖', color: '#fbbf24',
+                name: 'علم البيانات والذكاء الاصطناعي',
+                nameEn: 'Data Science & AI',
+                tagline: 'هذا التخصص يشبه «المحلل الخبير أو التاجر الذكي»',
+                details: [
+                    { title: '📈 التوقع بناءً على الماضي', text: 'لو كنت صاحب محل ملابس ورأيت أن الزبائن يشترون المعاطف بكثرة كلما انخفضت الحرارة؛ كيف تستخدم هذه المعلومات لتعرف كم قطعة تشتري للشتاء القادم؟' },
+                    { title: '🍎 الفرز الذكي', text: 'كيف يمكن لآلة أن تتعلم التمييز بين التفاح الصالح والتفاح الفاسد بمجرد النظر إليهما، دون أن يتدخل إنسان في كل مرة؟' }
+                ]
+            },
+            mobile: {
+                icon: '📱', color: '#f472b6',
+                name: 'برمجة التطبيقات',
+                nameEn: 'Mobile Apps Development',
+                tagline: 'هذا التخصص يشبه «صناعة الأدوات اليدوية أو السويسرية»',
+                details: [
+                    { title: '🔪 الأداة التي في جيبك', text: 'لماذا نفضل استخدام «سكين الجيش السويسري» التي تحتوي على مفك ومقص وسكين في أداة واحدة صغيرة، بدلاً من حمل صندوق أدوات ثقيل؟' },
+                    { title: '👆 سهولة الاستخدام أثناء الحركة', text: 'كيف يمكنك طلب سيارة أجرة أو شراء طعام بضغطة زر واحدة وأنت تمشي، وكيف تم تصميم هذا الزر ليكون واضحاً لدرجة أن طفلاً يمكنه استخدامه؟' }
+                ]
+            },
+            security: {
+                icon: '🔐', color: '#f87171',
+                name: 'الأمن السيبراني',
+                nameEn: 'Cybersecurity',
+                tagline: 'هذا التخصص يشبه «الحراسة والأنظمة الأمنية»',
+                details: [
+                    { title: '🔒 القفل والحارس', text: 'إذا كان لديك صندوق مجوهرات داخل منزل، هل يكفي أن تقفل باب المنزل فقط؟ أم تحتاج لقفل على الصندوق وكاميرا مراقبة وشخص يتأكد من هوية كل من يدخل؟' },
+                    { title: '🕵️ كشف التنكر', text: 'كيف تعرف أن الشخص الذي يتصل بك ويدعي أنه موظف البنك هو فعلاً موظف البنك وليس «محتالاً» يرتدي زياً مشابهاً؟' }
+                ]
+            }
+        };
+
+        let currentQ = 0;
+        let selectedOption = null;
+        let scores = { web: 0, networking: 0, data: 0, mobile: 0, security: 0 };
+
+        function startQuiz() {
+            document.getElementById('hero-section').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            currentQ = 0;
+            scores = { web: 0, networking: 0, data: 0, mobile: 0, security: 0 };
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = QUESTIONS[currentQ];
+            const total = QUESTIONS.length;
+
+            document.getElementById('q-counter').textContent = `سؤال ${currentQ + 1} / ${total}`;
+            document.getElementById('progress-fill').style.width = Math.round(((currentQ + 1) / total) * 100) + '%';
+            document.getElementById('q-text').textContent = q.text;
+
+            const wrap = document.getElementById('options-wrap');
+            wrap.innerHTML = '';
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="opt-label">${opt.label}</span><span>${opt.text}</span>`;
+                btn.onclick = () => selectOption(i, btn);
+                wrap.appendChild(btn);
+            });
+
+            const nb = document.getElementById('btn-next');
+            nb.style.display = 'none';
+            nb.textContent = currentQ === total - 1 ? '✦ عرض نتيجتي' : 'التالي ◄';
+            selectedOption = null;
+        }
+
+        function selectOption(idx, btn) {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedOption = QUESTIONS[currentQ].options[idx];
+            document.getElementById('btn-next').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            if (!selectedOption) return;
+            Object.entries(selectedOption.scores).forEach(([track, pts]) => {
+                scores[track] += pts;
+            });
+            currentQ++;
+            if (currentQ >= QUESTIONS.length) showResults();
+            else renderQuestion();
+        }
+
+        function showResults() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result-section').style.display = 'block';
+
+            const maxScore = Math.max(...Object.values(scores));
+            const winners = Object.entries(scores)
+                .filter(([, s]) => s === maxScore)
+                .map(([id]) => TRACKS[id]);
+
+            const container = document.getElementById('result-cards');
+            container.innerHTML = '';
+
+            if (winners.length > 1) {
+                const header = document.createElement('div');
+                header.style.cssText = 'text-align:center;margin-bottom:1.5rem';
+                header.innerHTML = `<h2 style="color:var(--neon-blue);font-size:1.4rem;font-weight:900">🌟 لديك ميول متوازنة في تخصصين!</h2>`;
+                container.appendChild(header);
+                const grid = document.createElement('div');
+                grid.className = 'multi-grid';
+                winners.forEach(track => grid.appendChild(buildCard(track)));
+                container.appendChild(grid);
+            } else {
+                container.appendChild(buildCard(winners[0]));
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function buildCard(track) {
+            const card = document.createElement('div');
+            card.className = 'track-card';
+            card.style.borderColor = track.color + '40';
+            card.innerHTML = `
+                <span class="track-icon">${track.icon}</span>
+                <div class="track-name" style="color:${track.color}">${track.name}</div>
+                <div class="track-sub">${track.nameEn} — ${track.tagline}</div>
+                ${track.details.map(d => `
+                    <div class="track-detail-title">${d.title}</div>
+                    <div class="track-detail-text">${d.text}</div>
+                `).join('')}
+            `;
+            return card;
+        }
+
+        function resetQuiz() {
+            if (!confirm('سيتم مسح نتائجك والبدء من جديد. متأكد؟')) return;
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('result-cards').innerHTML = '';
+            document.getElementById('hero-section').style.display = 'block';
+            scores = { web: 0, networking: 0, data: 0, mobile: 0, security: 0 };
+            currentQ = 0;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <script src="script.js"></script>
+
 </body>
 </html>
